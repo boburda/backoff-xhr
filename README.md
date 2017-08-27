@@ -39,7 +39,7 @@ var connection = dauntless.conn(httpMethod);
 connection.setUrl(yourUrlHere);
 connection.returnPromise = true;
 ```
-To use as a Promise, simply do:
+To use as a Promise, then do:
 
 ```
 connection.exec().then(res => {

@@ -1,7 +1,7 @@
 {
   "name": "dauntless",
-  "version": "1.0.0",
-  "description": "Dauntless.js is a minimalist, error-tolerant, highly configurable request package for Node",
+  "version": "1.0.1",
+  "description": "Dauntless.js is a minimalist, error-tolerant, highly configurable http(s) request package for Node",
   "main": "./lib/index.js",
   "directories": {
     "lib": "lib"
@@ -29,6 +29,9 @@
     "error",
     "tolerance"
   ],
+  "engines": {
+    "node": ">=7.6.0"
+  },
   "author": "Bob Urda",
   "license": "MIT",
   "bugs": {
