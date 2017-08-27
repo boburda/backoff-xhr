@@ -1,8 +1,18 @@
-# dauntless.js
+# Dauntless - An Error Tolerant Request Module
 
-Dauntless.js is a minimalist, error tolerant, highly configurable request package for Node. It was created to be a more resilient option than request-promise when dealing with transient errors by implementing exponential backoff while still allowing for a single Promise to wrap around the HTTP request. 
+Dauntless is a minimalist, error tolerant, easily extensible request module for Node.
+
+* Error tolerance for server backend issues via exponential backoff
+* Implements native ES6 Promises and async-await
+* Includes hook to easily check for authorization
+* Easily extensible architecture
+* Small library size and only a single dependency
+
+Use Dauntless if your Node project has to interact with servers that occasionally throw transient backend errors. Tested and proven to work with YouTube's REST APIs. 
 
 # Installation
+
+It's as easy as installing the package via npm
 
 ```
 npm install dauntless
@@ -10,7 +20,7 @@ npm install dauntless
 
 # Usage
 
-Creating a connection using dauntless.js is as simple as passing an HTTP method, handlers for success and error, and setting the request URL:
+Creating a connection using Dauntless is as simple as passing an HTTP method, handlers for success and error, and setting the request URL:
 
 ```
 const dauntless = require('dauntless');
@@ -21,7 +31,7 @@ connection.exec();
 
 ## Handlers
 
-dauntless.js uses handlers to deal with the three main states of the connection: success, error, and retry. These handlers all use the same function syntax:
+Dauntless uses handlers to deal with the three main states of the connection: success, error, and retry. Handlers are functions with the following syntax:
 
 ```
 function successHandler(res) {
@@ -58,7 +68,7 @@ async function waitForDauntless() {
 
 ## Advanced Features
 
-Dauntless.js is based off the xmlhttprequest node module. You can access the underlying XMLHttpRequest object at any time by using
+Dauntless is based off the xmlhttprequest node module. You can access the underlying XMLHttpRequest object at any time by using
 
 ```
 nameOfDauntlessConnection.xhr.nameOfMethodOrProp
