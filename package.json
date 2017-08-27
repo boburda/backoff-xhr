@@ -1,0 +1,38 @@
+{
+  "name": "dauntless",
+  "version": "1.0.0",
+  "description": "Dauntless.js is a minimalist, error-tolerant, highly configurable request package for Node",
+  "main": "./lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boburda/dauntless-js.git"
+  },
+  "keywords": [
+    "dauntless",
+    "xhr",
+    "xmlhttprequest",
+    "youtube",
+    "api",
+    "aws",
+    "exponential",
+    "backoff",
+    "error",
+    "tolerance"
+  ],
+  "author": "Bob Urda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boburda/dauntless-js/issues"
+  },
+  "homepage": "https://github.com/boburda/dauntless-js#readme"
+}
