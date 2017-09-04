@@ -1,4 +1,4 @@
-# Durable HTTP/HTTPS Requests (version 2.1.0)
+# Durable HTTP/HTTPS Requests (version 2.1.1)
 
 Dauntless is an error tolerant, flexible, and extensible HTTP/HTTPS request client for Node based off the XMLHttpRequest specification. Use Dauntless if your Node project requires:
 
@@ -24,7 +24,7 @@ Creating a promise-wrapped XHR request using Dauntless is as simple as sending a
 
 ```
 const dauntless = require('dauntless');
-var client = dauntless.client();
+var client = new dauntless.client();
 client.open(HttpMethod, requestUrl);
 var promisedRequest = client.send(requestBody);
 ```
@@ -38,17 +38,9 @@ dauntless.rp(url, options);
 
 See 'request-promise mode' below for more information.
 
-### Response Code Ranges
+## Features
 
-By default, Dauntless requests consider HTTP 2xx and 3xx responses a "success" (successOn), 4xx responses an "error" (errorOn), and 5xx response a "retry" (retryOn). You can customize these ranges by using:
-
-```
-// Clears the range, then sets it to this inclusive range of values
-client.setRange(beginning, end, client.successOn/errorOn/retryOn)
-
-// Just adds the every number in the range to the range
-client.addRange(beginning, end, client.successOn/errorOn/retryOn)
-```
+Though dauntless requires minimal configuration out of the box, client instances are highly configurable while still allowing you to focus on writing logic that powers your software.
 
 ### Handlers, autoResolve, and autoReject
 
@@ -85,7 +77,7 @@ function dataReader = (res) {
   }
 }
 
-let client = dauntless.client();
+let client = new dauntless.client();
 client.autoResolve = false;
 client.setSuccessHandler(dataReader);
 client.open(HttpMethod, requestUrl);
@@ -108,7 +100,7 @@ Here's an example of a custom validationHandler implementation. It checks to see
 async function refreshToken() {
   if(!(this.url && this.method && this.xhr.status <= 1)) return false;
   if(tokenValidUntil <= Date.now()) {
-      let refreshRequest = dauntless.client();
+      let refreshRequest = new dauntless.client();
       refreshRequest.open('POST', `https://www.googleapis.com/oauth2/v4/token?refresh_token=${refresh}&client_secret=${secret}&client_id=${id}&grant_type=refresh_token`);
       refreshRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       let response = await refreshRequest.send();
@@ -117,13 +109,25 @@ async function refreshToken() {
   return true;
 }
 
-var client = dauntless.client();
+var client = new dauntless.client();
 client.open('GET', endpoint);
 client.setValidationHandler(refreshToken);
 client.send();
 ```
 
 Now your client will automatically check to see if the access token is valid before proceeding with your initial request.
+
+### Response Code Ranges
+
+By default, Dauntless requests consider HTTP 2xx and 3xx responses a "success" (successOn), 4xx responses an "error" (errorOn), and 5xx response a "retry" (retryOn). You can customize these ranges by using:
+
+```
+// Clears the range, then sets it to this inclusive range of values
+client.setRange(beginning, end, client.successOn/errorOn/retryOn)
+
+// Just adds the every number in the range to the range
+client.addRange(beginning, end, client.successOn/errorOn/retryOn)
+```
 
 ### invokeXhr
 
@@ -137,7 +141,7 @@ Alternatively, you can call methods and set properties of the XHR object in a ba
 
 ```
 const dauntless = require('dauntless');
-let client = dauntless.client(httpMethod, successHandler, failureHandler);
+let client = new dauntless.client(httpMethod, successHandler, failureHandler);
 client.invokeXhr({ "setRequestHeader": ["headerName", "headerValue"]});
 ```
 
@@ -145,7 +149,7 @@ invokeXhr returns the object you pass as an argument, along with a returnValue t
 
 ```
 const dauntless = require('dauntless');
-let client = dauntless.client(httpMethod, successHandler, failureHandler);
+let client = new dauntless.client(httpMethod, successHandler, failureHandler);
 var options = client.invokeXhr({ "getAllResponseHeaders"});
 console.log(options.getAllResponseHeaders.returnValue);
 ```
