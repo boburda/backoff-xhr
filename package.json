@@ -1,6 +1,6 @@
 {
   "name": "dauntless",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Dauntless is a minimalist, error-tolerant, highly configurable http(s) request package for Node",
   "main": "./lib/index.js",
   "directories": {
@@ -9,7 +9,12 @@
   "dependencies": {
     "xmlhttprequest": "^1.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "jsdoc-babel": "^0.3.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
