@@ -1,4 +1,4 @@
-require('dauntless')
+require('../lib/index.js')
 
 var auth = {
     refreshToken: "YOUR-REFRESH-TOKEN-HERE",
@@ -8,24 +8,30 @@ var auth = {
     accessToken: ""
 }
 
-let refreshToken = async function() {
-    if(!(this.url && this.method && this.xhr.status <= 1)) return false;
-    if(auth.tokenValidUntil <= Date.now()) {
+let refreshToken = async function () {
+
+    // console.log("got to check")
+    if (!(this.getUrl() && this.getMethod() && this.getStatus() <= 1)) return false;
+    if (auth.tokenValidUntil <= Date.now()) {
         let refreshRequest = new dauntless.client();
+        // console.log("testing auth with " + `https://www.googleapis.com/oauth2/v4/token?refresh_token=${auth.refreshToken}&client_secret=${auth.clientSecret}&client_id=${auth.clientId}&grant_type=refresh_token`)
         refreshRequest.open('POST', `https://www.googleapis.com/oauth2/v4/token?refresh_token=${auth.refreshToken}&client_secret=${auth.clientSecret}&client_id=${auth.clientId}&grant_type=refresh_token`);
         refreshRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         let response = await refreshRequest.send();
         let parsedResponse = JSON.parse(response);
-        if(parsedResponse.access_token) {
+        // console.log("got to parsed")
+        if (parsedResponse.access_token) {
             let expiresInMilliseconds = parseInt(auth.expires_in) * 1000;
             auth.accessToken = parsedResponse.access_token;
             auth.tokenValidUntil = parseInt((Date.now() + expiresInMilliseconds) - 100000);
         }
-      }
+    }
     return true;
-  }
-  
-  var client = new dauntless.client();
-  client.open('GET', endpoint);
-  client.setValidationHandler(refreshToken);
-  client.send();
+}
+
+exports = function () {
+    var client = new dauntless.client();
+    client.open('GET', endpoint);
+    client.setValidationHandler(refreshToken);
+    return client.send();
+}

@@ -1,4 +1,4 @@
-# Durable HTTP/HTTPS Requests (version 2.1.1)
+# Durable HTTP/HTTPS Requests (version 2.x)
 
 Dauntless is an error tolerant, flexible, and extensible HTTP/HTTPS request client for Node based off the XMLHttpRequest specification. Use Dauntless if your Node project requires:
 
@@ -7,6 +7,7 @@ Dauntless is an error tolerant, flexible, and extensible HTTP/HTTPS request clie
 * Hooks to easily check for request authorization
 * Flexible, extensible architecture with minimal assumptions about use cases
 * Small library size and only a single dependency
+* Browser and server support using the same HTTP request client
 
 Dauntless assumes very little about what your request looks like or how you want to interact with it, preferring to give you the control of your requests.
 
